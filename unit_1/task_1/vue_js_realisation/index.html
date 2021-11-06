@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .red {
+            background-color: rgb(248, 94, 94);
+        }
+
+        .blue {
+            background-color: rgb(119, 119, 255);
+        }
+
+        .green {
+            background-color: rgb(116, 255, 116);
+        }
+    </style>
+    <div id="app">
+        <div>
+            <button v-on:click='activeCountry = ua'>Ukraine</button>
+            <button v-on:click='activeCountry = pl'>Poland</button>
+            <button v-on:click='activeCountry = de'>Germany</button>
+        </div>
+        <ul id="cities" v-bind:class = bg>
+            <li v-if='activeCountry' v-for="city in activeCountry">
+                {{ city }}
+            </li>
+        </ul>
+        <div>
+            <button v-on:click='bg = "red"'>Red</button>
+            <button v-on:click='bg = "blue"'>Blue</button>
+            <button v-on:click='bg = "green"'>Green</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src='main.js'></script>
+</body>
+
+</html>

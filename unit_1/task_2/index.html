@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .bg-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #ccc;
+            opacity: 0.7;
+        }
+
+        .pp-field {
+            background-color: #fff;
+            opacity: 1;
+            position: relative;
+            top: 20vh;
+            left: 25%;
+            padding: 25px;
+            width: 50%;
+            z-index: 10;
+        }
+
+        .flx-btwn {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .close {
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .red {
+            background-color: rgb(248, 94, 94);
+        }
+
+        .blue {
+            background-color: rgb(119, 119, 255);
+        }
+
+        .green {
+            background-color: rgb(116, 255, 116);
+        }
+    </style>
+    <div id="app">
+        <button v-on:click="modal=true">open pop-up</button>
+        <div class="popup" v-show='modal'>
+            <div class="bg-field" v-on:click="modal=false">
+
+            </div>
+            <div class="pp-field" v-bind:class=bg>
+                <div class="flx-btwn">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum esse laborum tempore at ipsum
+                        sapiente iure molestias dolorem unde fuga quis repudiandae voluptates nobis, commodi illo?
+                        Cupiditate sunt optio amet.
+                        Delectus, similique dolorem. Corrupti ipsum quasi, enim, id error molestiae doloribus alias
+                        autem nobis quia vitae omnis ab consectetur! Omnis expedita ab voluptatem maiores iure
+                        voluptates nostrum magnam exercitationem nemo.
+                        Voluptatibus commodi cupiditate, minus ex, odio fugiat sunt, similique facilis rem suscipit non
+                        dolore beatae harum sit pariatur labore. Sapiente, ratione? Sequi eius quibusdam ab impedit ipsa
+                        at autem quas?</p>
+                    <div class="close" v-on:click="modal=false">x</div>
+                </div>
+                <div class="btns">
+                    <button v-on:click="bg = 'red'">Red</button>
+                    <button v-on:click="bg = 'green'">Green</button>
+                    <button v-on:click="bg = 'blue'">Blue</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

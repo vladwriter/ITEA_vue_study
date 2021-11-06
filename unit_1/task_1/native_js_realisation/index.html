@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .red {
+            background-color: rgb(248, 94, 94);
+        }
+
+        .blue {
+            background-color: rgb(119, 119, 255);
+        }
+
+        .green {
+            background-color: rgb(116, 255, 116);
+        }
+    </style>
+    <div>
+        <button onclick="getList(ua)">Ukraine</button>
+        <button onclick="getList(pl)">Poland</button>
+        <button onclick="getList(de)">Germany</button>
+    </div>
+    <ul id="cities">
+    </ul>
+    <div>
+        <button onclick="addClass('red')">Red</button>
+        <button onclick="addClass('blue')">Blue</button>
+        <button onclick="addClass('green')">Green</button>
+    </div>
+    <script src='main.js'></script>
+</body>
+
+</html>
