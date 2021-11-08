@@ -16,3 +16,6 @@ const getList = (arr) => {
 const addClass = (clsName) => {
     cities.className = clsName
 }
+
+getList(ua)
+addClass('red')

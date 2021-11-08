@@ -6,7 +6,7 @@ const app = new Vue({
     el: '#app',
     data: {
       ua, pl, de,
-      activeCountry: [],
-      bg: ''
+      activeCountry: ua,
+      bg: 'red'
     }
   })
