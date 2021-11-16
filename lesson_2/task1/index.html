@@ -27,8 +27,8 @@
         }
     </style>
     <div id="app">
-        <input type="text" placeholder="Write guest data" v-model = "search">
-            <span>You are searching for  <b>{{activeCategory}}</b></span><br>
+        <input type="text" placeholder="Search..." v-model = "search"><br>
+            <span>Let's write name, company, email, phone or address of the guests. <br>You are searching for  <b>{{activeCategory}}.</b></span><br>
             <button @click="showItems('present')">Present {{presentGuests}}</button>
             <button @click="showItems('absent')">Absent {{absentGuests}}</button>
             <button @click="showItems('else')">Else</button>

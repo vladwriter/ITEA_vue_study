@@ -1,9 +1,3 @@
-
-for (let i = 0; i < guestsList.length; i++) {
-    guestsList[i]["isPresent"] = false
-}
-console.log(guestsList)
-
 const app = new Vue({
     el: '#app',
     components: {
@@ -40,7 +34,7 @@ const app = new Vue({
             let newArray = [];
             const search = this.search.toLowerCase();
                 for (key in obj) {
-                el = obj[key]
+                let el = obj[key]
                     if (el.name.toLowerCase().indexOf(search) != -1) {
                         newArray.push(el)
                         this.activeCategory = 'name'
@@ -69,6 +63,11 @@ const app = new Vue({
         countGuests(){
             this.presentGuests = guestsList.filter(guest => guest.isPresent).length
             this.absentGuests = guestsList.filter(guest => !guest.isPresent).length
+        }
+    },
+    beforeCreate(){
+        for (let i = 0; i < guestsList.length; i++) {
+            guestsList[i]["isPresent"] = false
         }
     }
 })
