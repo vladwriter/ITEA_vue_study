@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .present {
+            text-decoration: line-through;
+        }
+        div.item{
+            font-size: 14px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        label .name{
+            font-size:20px;
+        }
+        button{
+            margin: 10px 0;
+        }
+    </style>
+    <div id="app">
+        <input type="text" placeholder="Write guest data" v-model = "search">
+            <span>You are searching for  <b>{{activeCategory}}</b></span><br>
+            <button @click="showItems('present')">Present {{presentGuests}}</button>
+            <button @click="showItems('absent')">Absent {{absentGuests}}</button>
+            <button @click="showItems('else')">Else</button>
+            <button @click="showItems('all')">Show all</button>
+            Count of results: {{searchResults.length}}
+        <div v-for="guest in resultsWithLimit"
+            >
+            <guest :guest="guest"
+            v-model="countGuests"
+            ></guest><br>
+        </div>
+    </div>
+    <!-- guests list -->
+    <script src="guests.js"></script>
+
+    <!-- Vue.js connect -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+    <!-- components -->
+    <script src="components/guestItem.js"></script>
+
+    <!-- main file -->
+    <script src="main.js"></script>
+</body>
+
+</html>

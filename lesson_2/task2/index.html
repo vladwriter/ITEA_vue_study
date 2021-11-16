@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        .article {
+            width: 20%;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        .field {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .preloader{
+            width: 50%;
+            margin: 0 auto;
+        }
+        .countdown{
+            font-size: 25px;
+            text-align: center;
+            color: #c8321e;
+        }
+    </style>
+    <div id="app">
+        <preloader v-if="isActivePreloader" :countdown="countdown"></preloader>
+        <div v-if="showContent">
+            <h1>Welcome to our newspaper!</h1>
+            <div class="field">
+                <news-item v-for="item in news" :data='item'></news-item>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vue.js connect -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+    <!-- components -->
+    <script src="components/preloader.js"></script>
+    <script src="components/newsItem.js"></script>
+
+    <!-- main file -->
+    <script src="main.js"></script>
+</body>
+
+</html>
