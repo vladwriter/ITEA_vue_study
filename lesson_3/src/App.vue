@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <link rel="stylesheet" href="https://bootswatch.com/5/sketchy/bootstrap.min.css">
-
     <to-do-list/>
   </div>
 </template>

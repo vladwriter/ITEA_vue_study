@@ -1,10 +1,11 @@
 <template>
-  <div class="item alert alert-dismissible alert-info">
+  <div class="item alert alert-dismissible alert-info" :class="{checked:isCompleted}">
     <img v-bind:src=img>
       <span class="text-secondary">{{id}} {{title}}</span> 
       <span class="text-secondary">{{description}}</span><br>
       <div class="nav">
-        <button class="btn btn-info" @click="doTask(id)">Done</button>
+        <button v-if="!isCompleted" class="btn btn-info" @click="doTask(id)">Done</button>
+        <button v-else class="btn btn-success" @click="doTask(id)">Return</button>
         <button class="btn btn-warning">Edit</button>
         <button class="btn btn-danger">Delete</button>
       </div>
@@ -30,15 +31,16 @@ export default {
     description:{
       type: String,
       default: "Default description"
-    }
+    },
+    isCompleted: Boolean
   },
   data(){
     return{
     }
   },
   methods:{
-    doTask: (id)=>{
-      this.$emit('complete', {"id": id})
+    doTask(id){
+      this.$emit("do-task", id)
     }
   }
 }
@@ -58,5 +60,8 @@ img {
 .btn{
   height: 40px;
   margin: 0 5px;
+}
+.checked span{
+  text-decoration: line-through;
 }
 </style>
