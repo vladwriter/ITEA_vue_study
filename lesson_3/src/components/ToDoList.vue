@@ -1,19 +1,32 @@
 <template>
   <div>
-    <add-list
-      @add-task="addTask"
+    <authorization
+      @auth-id="getAuthId"
+      v-if="!authorizedUser"
     />
-    <div>
-      <list-item
-      @do-task="completeTask"
-        v-for="item in taskList" 
-        :key="item.id"
-        :id = "item.id"
-        :img="item.img"
-        :title="item.title"
-        :description="item.description"
-        :isCompleted="item.isCompleted"
-      />
+    <div
+      v-else>
+      <button type="button" class="btn btn-success" @click="changeUser">Change user</button>
+      <add-list
+        @add-task="addTask"
+      >
+      <template #addTaskForm></template>
+      </add-list>
+        <list-item
+          v-for="item in currentTaskList"
+          @do-task="completeTask"
+          @edit-task="editTask"
+          @delete-task="deleteTask"
+          :key="item.id"
+          :userId="item.userId"
+          :id = "item.id"
+          :img="item.img"
+          :title="item.title"
+          :description="item.description"
+          :isCompleted="item.isCompleted"
+          :isEdited="item.isEdited"
+          :dateTime="item.dateTime"
+        />
     </div>
   </div>
 </template>
@@ -21,32 +34,61 @@
 <script>
 import AddList from './AddList.vue'
 import ListItem from './ListItem.vue'
+import Authorization from './Authorization.vue'
 
 export default {
   name: 'ToDoList',
   components:{
       AddList,
-      ListItem
+      ListItem,
+      Authorization
     },
-  props: {
-  },
   data(){
     return{
-      taskList: []
+      authorizedUser: '',
+      taskList: [],
+      currentTaskList:[]
     }
   },
   computed:{
   },
   methods:{
     addTask(task){
-      this.taskList.push(task) 
+      let newTask = task
+      newTask.userId = this.authorizedUser
+      this.taskList.push(newTask)
+      this.currentTaskList = this.taskList.filter(task => task.userId == this.authorizedUser)
     },
     completeTask(id){
       for(let i = 0; i<this.taskList.length; i++){
         if(this.taskList[i].id === id){
-          this.taskList[i].isCompleted = true
+          this.taskList[i].isCompleted = !this.taskList[i].isCompleted
         }
       }
+    },
+    editTask(data){
+      for(let i = 0; i<this.taskList.length; i++){
+        if(this.taskList[i].id === data.id){
+          this.taskList[i].img = data.img
+          this.taskList[i].title = data.title
+          this.taskList[i].description = data.description
+          this.taskList[i].isEdited = true
+        }
+      }
+    },
+    deleteTask(id){
+      for(let i = 0; i<this.taskList.length; i++){
+        if(this.taskList[i].id === id){
+          this.taskList.splice(i, 1)
+        }
+      }
+    },
+    getAuthId(id){
+      this.authorizedUser = id
+      this.currentTaskList = this.taskList.filter(task => task.userId == id)
+    },
+    changeUser(){
+      this.authorizedUser = ''
     }
   }
 }

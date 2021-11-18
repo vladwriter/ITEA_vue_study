@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slot name="addTaskForm">
     <form @submit.prevent="onSubmit">
     <c-input
       placeholder="Title"
@@ -16,6 +17,7 @@
     <button type="submit" class="btn btn-success btn-lg"
       >Add task</button>
       </form>
+      </slot>
   </div>
 </template>
 
@@ -39,12 +41,21 @@ export default {
   },
   methods:{
     onSubmit(){
+      const dateTime = new Date()
+      let minutes = dateTime.getMinutes()
+      let hours = dateTime.getHours()
+      let day = dateTime.getDate()
+      let month = dateTime.getMonth()+1
+      let year = dateTime.getFullYear()
+      let currentDateTime = `${hours}:${minutes} ${day}.${month}.${year}`
       const newTask = {
         id: this.id,
         title: this.title,
         description: this.description,
         img: this.img,
-        isCompleted: false
+        isCompleted: false,
+        isEdited: false,
+        dateTime: currentDateTime
       }
       this.$emit('add-task', newTask)
       this.id++
