@@ -57,6 +57,7 @@ export default {
 <style scoped>
   .slider{
     width: 50vw;
+    margin: auto;
   }
   .wrapper{
     width: 50vw;
