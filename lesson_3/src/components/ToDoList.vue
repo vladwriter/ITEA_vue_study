@@ -9,6 +9,7 @@
       <button type="button" class="btn btn-success" @click="changeUser">Change user</button>
       <add-list
         @add-task="addTask"
+        @list-type="setListType"
       >
       <template #addTaskForm></template>
       </add-list>
@@ -26,6 +27,7 @@
           :isCompleted="item.isCompleted"
           :isEdited="item.isEdited"
           :dateTime="item.dateTime"
+          :isList = isList
         />
     </div>
   </div>
@@ -47,7 +49,8 @@ export default {
     return{
       authorizedUser: '',
       taskList: [],
-      currentTaskList:[]
+      currentTaskList:[],
+      isList: true
     }
   },
   computed:{
@@ -65,6 +68,7 @@ export default {
           this.taskList[i].isCompleted = !this.taskList[i].isCompleted
         }
       }
+      this.currentTaskList = this.taskList.filter(task => task.userId == this.authorizedUser)
     },
     editTask(data){
       for(let i = 0; i<this.taskList.length; i++){
@@ -75,6 +79,7 @@ export default {
           this.taskList[i].isEdited = true
         }
       }
+      this.currentTaskList = this.taskList.filter(task => task.userId == this.authorizedUser)
     },
     deleteTask(id){
       for(let i = 0; i<this.taskList.length; i++){
@@ -82,6 +87,7 @@ export default {
           this.taskList.splice(i, 1)
         }
       }
+      this.currentTaskList = this.taskList.filter(task => task.userId == this.authorizedUser)
     },
     getAuthId(id){
       this.authorizedUser = id
@@ -89,12 +95,15 @@ export default {
     },
     changeUser(){
       this.authorizedUser = ''
+    },
+    setListType(data){
+      this.isList = data
     }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style scoped>
 
 </style>

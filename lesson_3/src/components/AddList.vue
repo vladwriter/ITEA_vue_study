@@ -14,8 +14,12 @@
       placeholder="Img"
       v-model="img"
     />
+    <p class="text-danger">{{ validationMessage }}</p>
     <button type="submit" class="btn btn-success btn-lg"
       >Add task</button>
+      <button type="button" class="btn btn-warning btn-lg"
+      @click="setTypeOfList"
+      >Show tasks as {{getTypeOfList}}</button>
       </form>
       </slot>
   </div>
@@ -34,13 +38,27 @@ export default {
       title:"",
       description:"",
       img:"",
-      id: 0
+      id: 0,
+      isList: true,
+      validationMessage: ''
     }
   },
   computed: {
+    getTypeOfList(){
+      if(this.isList){
+        return "cards"
+      } else {
+        return "list"
+      }
+    }
   },
   methods:{
     onSubmit(){
+      let tail = this.img.split('.')
+      tail = tail[tail.length-1]
+      console.log(tail)
+      if(tail === 'jpg' || tail === 'png' || !tail){
+      this.validationMessage = ''
       const dateTime = new Date()
       let minutes = dateTime.getMinutes()
       let hours = dateTime.getHours()
@@ -59,6 +77,14 @@ export default {
       }
       this.$emit('add-task', newTask)
       this.id++
+      } else {
+        this.validationMessage = "Image format is only 'jpg' or 'png'"
+      }
+      
+    },
+    setTypeOfList(){
+      this.isList = !this.isList
+      this.$emit('list-type', this.isList)
     }
   }
 }

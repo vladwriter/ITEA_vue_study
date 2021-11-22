@@ -1,5 +1,7 @@
 <template>
-  <div class="item alert alert-dismissible alert-info" :class="{checked:isCompleted}">
+  <transition name="animateList" mode="in-out">
+  <div class="item alert alert-dismissible alert-info" :class="{card: !isList}">
+  <div  :class="{checked:isCompleted}">
     <div v-if="!editMode" class="d-flex">
         <img v-bind:src=img>
         <p class="text-secondary mx-3">{{title}}</p>
@@ -27,7 +29,9 @@
         <button v-else class="btn btn-success" @click="editTask(id)">Save</button>
         <button class="btn btn-danger" @click="deleteTask(id)">Delete</button>
       </div>
+      </div>
   </div>
+  </transition>
 </template>
 
 <script>
@@ -49,6 +53,7 @@ export default {
       default: false
       },
     dateTime: String,
+    isList: Boolean
   },
   data(){
     return{
@@ -87,6 +92,11 @@ export default {
   justify-content: space-between;
   margin: 10px 0;
 }
+.card{
+  width: 31%;
+  float: left;
+  margin: 0.5%;
+}
 img {
   width: 100px;
 }
@@ -96,5 +106,12 @@ img {
 }
 .checked p{
   text-decoration: line-through;
+}
+.animateList-enter-active, .animateList-leave-active {
+    transition: all .5s ease;
+}
+.animateList-enter, .animateList-leave-to{
+    opacity: 0;
+    transform: translateY(-100%);
 }
 </style>
