@@ -14,11 +14,11 @@
       <template #addTaskForm></template>
       </add-list>
         <list-item
-          v-for="item in currentTaskList"
+          v-for="(item, index) in currentTaskList"
           @do-task="completeTask"
           @edit-task="editTask"
           @delete-task="deleteTask"
-          :key="item.id"
+          :key="index"
           :userId="item.userId"
           :id = "item.id"
           :img="item.img"

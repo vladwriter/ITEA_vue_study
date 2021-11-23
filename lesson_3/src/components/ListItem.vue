@@ -96,6 +96,7 @@ export default {
   width: 31%;
   float: left;
   margin: 0.5%;
+  height: 30vh;
 }
 img {
   width: 100px;
