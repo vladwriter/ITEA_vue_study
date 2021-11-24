@@ -1,7 +1,11 @@
 <template>
   <label class="form-label mt-4">{{label}}<input type="text"
-                                                 @input="$emit('change-data')"
-                                                 v-bind="$attrs"
+                                                 @input="$emit(
+                                                     'change-data', {
+                                                          'value':$event.target.value,
+                                                          'label': label
+                                                          })"
+                                                 :value="value"
   /></label>
 </template>
 
@@ -10,6 +14,7 @@ export default {
   name: 'CInput',
   props: {
     label: String,
+    value: String
   },
 }
 </script>
