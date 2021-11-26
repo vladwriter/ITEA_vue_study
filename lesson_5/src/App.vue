@@ -4,17 +4,20 @@
     Task 1
     <some-form />
     Task 2
-    <vision-methods-form/>
+<!--    <vision-methods-form/>-->
+    <provide-injection />
   </div>
 </template>
 
 <script>
 import SomeForm from './components/SomeForm.vue'
 import VisionMethodsForm from "./components/VisionMethodsForm";
+import ProvideInjection from "./components/ProvideInjection";
 
 export default {
   name: 'App',
   components: {
+    ProvideInjection,
     VisionMethodsForm,
     SomeForm
   }

@@ -1,7 +1,9 @@
 <template>
   <form v-on:submit.prevent="onSubmit" class="wrapper">
-    <div class="form-group card">
-      <p v-if="changedFieldsCounter" class="text-success">{{ message }}</p>
+    <div class="form-group card"
+         :style="{'background-color': form.bg}">
+      <p v-if="changedFieldsCounter"
+        :style="{'color': form.clr}">{{ message }}</p>
       <div>
         <button v-if="changedFieldsCounter" type="button" class="btn btn-info"
                 @click="cleanFields"
@@ -9,6 +11,7 @@
         </button>
         <button type="button" class="btn btn-primary"
                 @click="isExtraFilters = !isExtraFilters"
+                :style="{'background-color': form.btnClr}"
         >
           Show extra filters
         </button>
@@ -56,6 +59,7 @@ import CSubmit from './CSubmit.vue'
 import { BtnSave } from './../hoc/BtnSave'
 
 export default {
+  inject: ['form'],
   components: { 
     BtnSave:  BtnSave(CSubmit),
     CInput,

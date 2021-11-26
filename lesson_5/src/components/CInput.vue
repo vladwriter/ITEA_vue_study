@@ -1,6 +1,8 @@
 <template>
-  <label class="form-label mt-4">{{label}}<input type="text"
-                                                 @input="$emit(
+  <label class="form-label mt-4"
+         :style="{'color': form.clr}"
+            >{{label}}<input type="text"
+                             @input="$emit(
                                                      'change-data', {
                                                           'value':$event.target.value,
                                                           'label': label
@@ -11,6 +13,7 @@
 
 <script>
 export default {
+  inject: ['form'],
   name: 'CInput',
   props: {
     label: String,
