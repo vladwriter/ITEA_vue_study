@@ -1,6 +1,7 @@
 <template>
   <form v-on:submit.prevent="onSubmit">
     <div class="form-group card">
+      <h2>Task 1</h2>
       <label for="first_name" class="form-label mt-4">First name</label>
       <input type="text" class="form-control" id="first_name" placeholder="Enter your first name" v-model="first_name">
       <label for="last_name" class="form-label mt-4">Last name</label>

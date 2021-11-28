@@ -2,6 +2,7 @@
   <form v-on:submit.prevent="onSubmit" class="wrapper">
     <div class="form-group card"
          :style="{'background-color': form.bg}">
+         <h2>Task 2</h2>
       <p v-if="changedFieldsCounter"
         :style="{'color': form.clr}">{{ message }}</p>
       <div>
