@@ -1,7 +1,11 @@
 <template>
   <div>
-    Open console and click this button
-    <button v-afterloop="someArray">afterLoop testing</button>
+    Afterloop
+    <ul>
+      <li 
+      v-for="(item, index) in array" :key="index"
+      v-afterloop="{ index, array, callBack }">{{item}}</li>
+    </ul>
   </div>
 </template>
 
@@ -15,6 +19,17 @@ export default {
   },
   props:{
     someArray: Array
+  },
+  data(){
+    return{
+      array: [1, 2, 3, 4, 5]
+    }
+  },
+  methods:{
+    callBack(){
+      console.log('Array is over')
+    }
   }
 }
 </script>
+

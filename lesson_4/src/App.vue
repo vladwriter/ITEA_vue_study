@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <after-loop :someArray = "array"/>
+    <after-loop />
     <class-builder />
     <slider />
   </div>
@@ -18,11 +18,6 @@ export default {
     AfterLoop,
     ClassBuilder,
     Slider
-  },
-  data(){
-    return{
-      array: [1, 2, 3, 4, 5]
-    }
   }
 }
 </script>
