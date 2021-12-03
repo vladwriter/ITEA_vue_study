@@ -1,31 +1,34 @@
 <template>
 <div class="posts">
     <h1>This is the Posts</h1>
-      <p v-for="(post, index) in posts">{{ index+1 }}.
-        <router-link :to='createUrl(index)'>{{post.title}}</router-link>
+    <div v-if="!isLoaded">Loading...</div>
+      <p v-for="(post, index) in posts" :key="post.id">{{ index+1 }}.
+        <router-link :to='createUrl(post.id)'>{{post.title}}</router-link>
       </p>
   </div>
 </template>
 
 <script>
+
+import { actions, getters } from '../store'
+
 export default {
-  name: 'CSubmit',
-  data(){
-    return{
-      posts:[],
-    }
+  name: 'Posts',
+  computed: {
+    ...getters
   },
   methods:{
+    ...actions,
     createUrl(idx){
-      return `/posts/${idx+1}`
+      return `/posts/${idx}`
     }
   },
-  beforeCreate() {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(response => response.json())
-        .then(posts => {this.posts = posts
-        })
-  }
+   beforeCreate() {
+    const vm = this
+    setTimeout(() => {
+      vm.getPosts()
+    }, 1000)
+  },
 }
 </script>
 <style>

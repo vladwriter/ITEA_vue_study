@@ -16,7 +16,7 @@
   </div>
   <div class="posts">
     <h2>Posts</h2>
-    <p v-for="(post, index) in userPosts">{{ index+1 }}.
+    <p v-for="(post, index) in posts.filter(item => item.userId == this.user.id)" :key='post.id'>{{ index+1 }}.
       <router-link :to='createUrl(post.id)'>{{post.title}}</router-link>
     </p>
   </div>
@@ -25,35 +25,39 @@
 
 <script>
 
+import { actions, getters } from '../store';
+
 export default {
   name: 'User',
+  computed: {
+    ...getters
+  },
   data(){
     return{
       user:{},
       userAddress:{},
       userGeo: {},
-      userPosts: []
+      userPosts: [],
     }
   },
   methods:{
+    ...actions,
     createUrl(idx){
-      return `/posts/${idx+1}`
+      return `/posts/${idx}`
     }
   },
   beforeCreate() {
+    const vm = this
+            setTimeout(() => {
+            vm.getPosts()
+          }, 1000)
     fetch(`https://jsonplaceholder.typicode.com/users/${this.$route.params.pathMatch}`)
         .then(response => response.json())
         .then(user => {
           this.user = user
           this.userAddress = user.address
           this.userGeo = user.address.geo
-        }).then(
-        fetch('https://jsonplaceholder.typicode.com/posts')
-            .then(response => response.json())
-            .then(posts => {
-              this.userPosts = posts.filter(item => item.userId == this.user.id)
-            })
-    )
+        })
   },
 }
 </script>
