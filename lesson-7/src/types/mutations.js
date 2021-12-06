@@ -1,0 +1,5 @@
+export const PLUS_ONE = 'PLUS_ONE'
+export const MINUS_ONE = 'MINUS_ONE'
+export const SET_IS_LOADED = 'SET_IS_LOADED'
+export const SET_POSTS = 'SET_POSTS'
+export const SET_USERS = 'SET_USERS'
