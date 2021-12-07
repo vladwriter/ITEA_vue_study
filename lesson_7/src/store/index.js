@@ -16,7 +16,7 @@ const store = new Vuex.Store({
     [PLUS_ONE]: state => state.count++,
     [MINUS_ONE]: state => state.count--,
     [SET_POSTS] (state, payload){
-      state.posts = payload
+        state.posts = payload
     },
     [SET_IS_LOADED](state, payload){
       state.isLoaded = payload

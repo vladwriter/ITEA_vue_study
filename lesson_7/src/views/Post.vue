@@ -1,22 +1,28 @@
 <template>
   <div>
-    <h2>Post #{{ post.id }} {{ post.title }}</h2>
-    <p>{{ post.body }}</p>
-    <p class="userName">Author: <router-link :to='createUrl(post.userId)'>Author</router-link></p>
+    <div v-if="isLoaded">
+      <h2>Post #{{ post.id }} {{ post.title }}</h2>
+      <p>{{ post.body }}</p>
+      <p class="userName">Author: <router-link :to='createUrl(post.userId)'>{{user.name}}</router-link></p>
+    </div>
   </div>
 
 </template>
 
 <script>
+import {GET_POSTS, GET_USERS} from "../types/actions";
+
 export default {
   name: "Post",
   computed:{
     post() {
-      console.log(this.$route.params.pathMatch)
-      return this.$store.state.posts.find(post => post.id === this.$route.params.pathMatch)
+      return this.$store.state.posts.find(post => post.id === Number(this.$route.params.pathMatch))
     },
-    users(){
-      return this.$store.state.users
+    user(){
+      return this.$store.state.users.find(user => user.id === this.post.userId)
+    },
+    isLoaded(){
+      return this.$store.state.isLoaded
     }
   },
   methods:{
@@ -24,16 +30,14 @@ export default {
       return `/users/${idx}`
     }
   },
-  // beforeMount() {
-  //   fetch(`https://jsonplaceholder.typicode.com/posts/${this.$route.params.pathMatch}`)
-  //       .then(response => response.json())
-  //       .then(post => {
-  //         this.post = post
-  //         fetch(`https://jsonplaceholder.typicode.com/users/${post.userId}`)
-  //             .then(response => response.json())
-  //             .then(user => this.userName = user.name)
-  //       })
-  //   }
+  beforeCreate() {
+      if(this.$store.state.posts.length < 1){
+        this.$store.dispatch(GET_POSTS)
+      }
+      if(this.$store.state.users.length < 1){
+        this.$store.dispatch(GET_USERS)
+      }
+  },
 }
 </script>
 

@@ -16,7 +16,7 @@
   </div>
   <div class="posts">
     <h2>Posts</h2>
-    <p v-for="(post, index) in posts.filter(item => item.userId == this.user.id)" :key='post.id'>{{ index+1 }}.
+    <p v-for="(post, index) in userPosts" :key='post.id'>{{ index+1 }}.
       <router-link :to='createUrl(post.id)'>{{post.title}}</router-link>
     </p>
   </div>
@@ -26,16 +26,22 @@
 <script>
 
 
+import {GET_POSTS, GET_USERS} from "../types/actions";
+
 export default {
   name: 'User',
   computed: {
-  },
-  data(){
-    return{
-      user:{},
-      userAddress:{},
-      userGeo: {},
-      userPosts: [],
+    user(){
+      return this.$store.state.users.find(user => user.id === Number(this.$route.params.pathMatch))
+    },
+    userAddress(){
+      return this.user.address
+    },
+    userGeo(){
+      return this.user.address.geo
+    },
+    userPosts(){
+      return this.$store.state.posts.filter(post => post.userId === this.user.id)
     }
   },
   methods:{
@@ -44,17 +50,12 @@ export default {
     }
   },
   beforeCreate() {
-    const vm = this
-            setTimeout(() => {
-            vm.getPosts()
-          }, 1000)
-    fetch(`https://jsonplaceholder.typicode.com/users/${this.$route.params.pathMatch}`)
-        .then(response => response.json())
-        .then(user => {
-          this.user = user
-          this.userAddress = user.address
-          this.userGeo = user.address.geo
-        })
+    if(this.$store.state.posts.length < 1){
+      this.$store.dispatch(GET_POSTS)
+    }
+    if(this.$store.state.users.length < 1){
+      this.$store.dispatch(GET_USERS)
+    }
   },
 }
 </script>
