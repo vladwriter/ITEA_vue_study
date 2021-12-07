@@ -1,0 +1,4 @@
+export const SET_AUTH_USER = 'SET_AUTH_USER'
+export const SET_TASKS = 'SET_TASKS'
+export const SET_LAST_TASK_ID = 'SET_LAST_TASK_ID'
+export const UPDATE_TASK_COMPLETE = 'UPDATE_TASK_COMPLETE'
