@@ -97,7 +97,7 @@ export default {
   beforeMount() {
     console.log(this.tasks)
     console.log(this.authUser)
-    this.currentTaskList = this.tasks.filter(task => task.userId == this.authUser)
+    this.currentTaskList = this.tasks.filter(task => task.userId === this.authUser)
   }
 }
 </script>
