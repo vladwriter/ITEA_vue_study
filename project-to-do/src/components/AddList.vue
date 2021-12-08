@@ -58,6 +58,9 @@ export default {
   },
   methods:{
     onSubmit(){
+      if(!this.img){
+        this.img = 'https://cdn-icons-png.flaticon.com/512/906/906334.png'
+      }
       let tail = this.img.split('.')
       tail = tail[tail.length-1]
       if(tail === 'jpg' || tail === 'png' || !tail){
