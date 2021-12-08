@@ -4,7 +4,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Authorization</h5>
+            <h5 class="modal-title">Authorization</h5><router-link to="/registration">Registration</router-link>
           </div>
           <div class="modal-body">
             <p class="text-danger">{{ message }}</p>
@@ -18,7 +18,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" @click="checkForm">Ok</button>
+            <button type="button" class="btn btn-primary" @click="checkForm">Sign in</button>
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@ export default {
         if(this.users[i].login == this.login && this.users[i].password == this.password){
           this.message =""
           this.$store.commit(SET_AUTH_USER, this.users[i].id)
-          this.$router.push({ name: 'Todos' })
+          this.$router.push('Todos')
         }else if(this.login == ""){
           this.message = "Login is empty"
         }else if(this.password == ""){

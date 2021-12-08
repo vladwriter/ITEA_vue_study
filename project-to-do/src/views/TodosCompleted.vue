@@ -1,11 +1,6 @@
 <template>
   <div>
-    <authorization
-      @auth-id="getAuthId"
-      v-if="!authorizedUser"
-    />
-    <div
-      v-else>
+    <div>
       <button type="button" class="btn btn-success" @click="changeUser">Change user</button>
       <add-list
         @add-task="addTask"
@@ -88,10 +83,6 @@ export default {
         }
       }
       this.currentTaskList = this.taskList.filter(task => task.userId == this.authorizedUser)
-    },
-    getAuthId(id){
-      this.authorizedUser = id
-      this.currentTaskList = this.taskList.filter(task => task.userId == id)
     },
     changeUser(){
       this.authorizedUser = ''

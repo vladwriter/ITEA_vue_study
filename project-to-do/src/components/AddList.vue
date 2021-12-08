@@ -1,7 +1,13 @@
 <template>
   <div>
     <slot name="addTaskForm">
-    <form @submit.prevent="onSubmit">
+      <button type="button" class="btn btn-info" @click="openCreateTaskForm = !openCreateTaskForm">Create new task</button>
+      <button type="button" class="btn btn-warning btn-lg"
+              @click="setTypeOfList"
+      >Show tasks as {{getTypeOfList}}</button>
+      <transition name="show" mode="in-out">
+    <form @submit.prevent="onSubmit"
+    v-if="openCreateTaskForm">
     <c-input
       placeholder="Title"
       v-model="title"
@@ -17,10 +23,8 @@
     <p class="text-danger">{{ validationMessage }}</p>
     <button type="submit" class="btn btn-success btn-lg"
       >Add task</button>
-      <button type="button" class="btn btn-warning btn-lg"
-      @click="setTypeOfList"
-      >Show tasks as {{getTypeOfList}}</button>
       </form>
+      </transition>
       </slot>
   </div>
 </template>
@@ -39,7 +43,8 @@ export default {
       description:"",
       img:"",
       isList: true,
-      validationMessage: ''
+      validationMessage: '',
+      openCreateTaskForm: false
     }
   },
   computed: {
@@ -88,5 +93,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
+.show-enter-active, .sh-leave-active {
+  transition: all .5s ease-in-out;
+}
+.show-enter, .show-leave-to{
+  opacity: 0;
+  transform: translateY(-8%);
+}
 </style>

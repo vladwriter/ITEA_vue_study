@@ -6,7 +6,7 @@
         @add-task="addTask"
         @list-type="setListType"
       >
-      <template #addTaskForm></template>
+          <template #addTaskForm></template>
       </add-list>
         <list-item
           v-for="(item, index) in currentTaskList"
@@ -31,7 +31,7 @@
 <script>
 import AddList from '../components/AddList.vue'
 import ListItem from '../components/ListItem.vue'
-import {SET_LAST_TASK_ID, SET_TASKS, UPDATE_TASK_COMPLETE} from "../types/mutations";
+import {DELETE_TASK, SET_LAST_TASK_ID, SET_TASKS, UPDATE_TASK} from "../types/mutations";
 
 export default {
   name: 'ToDoList',
@@ -42,7 +42,7 @@ export default {
   data(){
     return{
       currentTaskList:[],
-      isList: true
+      isList: true,
     }
   },
   computed:{
@@ -62,25 +62,30 @@ export default {
       this.$store.commit(SET_LAST_TASK_ID)
     },
     completeTask(id){
-      this.$store.commit(UPDATE_TASK_COMPLETE, id)
+      for(let i = 0; i<this.tasks.length; i++) {
+        if (this.tasks[i].id === id) {
+          let newTask = this.tasks[i]
+          newTask.isCompleted = !newTask.isCompleted
+          newTask.userId = this.authUser
+          this.$store.commit(UPDATE_TASK, {id: id, newTask})
+        }
+      }
     },
     editTask(data){
-      for(let i = 0; i<this.tasks.length; i++){
-        if(this.tasks[i].id === data.id){
-          this.tasks[i].img = data.img
-          this.tasks[i].title = data.title
-          this.tasks[i].description = data.description
-          this.tasks[i].isEdited = true
+      for(let i = 0; i<this.tasks.length; i++) {
+        if (this.tasks[i].id === data.id) {
+          let newTask = this.tasks[i]
+          newTask.img = data.img
+          newTask.title = data.title
+          newTask.description = data.description
+          newTask.isEdited = true
+          newTask.userId = this.authUser
+          this.$store.commit(UPDATE_TASK, {id: data.id, newTask})
         }
       }
     },
     deleteTask(id){
-      for(let i = 0; i<this.tasks.length; i++){
-        if(this.tasks[i].id === id){
-          this.tasks.splice(i, 1)
-        }
-      }
-
+      this.$store.commit(DELETE_TASK, id)
     },
     changeUser(){
       this.authUser = ''
@@ -95,8 +100,6 @@ export default {
     },
   },
   beforeMount() {
-    console.log(this.tasks)
-    console.log(this.authUser)
     this.currentTaskList = this.tasks.filter(task => task.userId === this.authUser)
   }
 }

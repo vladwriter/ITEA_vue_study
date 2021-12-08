@@ -2,7 +2,7 @@
   <div id="app">
     <link rel="stylesheet" href="https://bootswatch.com/5/sketchy/bootstrap.min.css">
     <div id="nav">
-      <router-link to="/auth">Auth</router-link> |
+      <router-link to="/auth">Change user</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
