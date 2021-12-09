@@ -23,11 +23,14 @@
       </div>
     </div>
       <div class="nav">
-        <button v-if="!isCompleted" class="btn btn-info" @click="doTask(id)">Done</button>
-        <button v-else class="btn btn-success" @click="doTask(id)">Return</button>
-        <button v-if="!editMode" class="btn btn-warning" @click="editMode = !editMode">Edit</button>
-        <button v-else class="btn btn-success" @click="editTask(id)">Save</button>
-        <button class="btn btn-danger" @click="deleteTask(id)">Delete</button>
+        <button class="btn btn-info" @click="showActions">{{showActionsBtnName}} actions</button>
+        <template v-if="isShowActions">
+          <button v-if="!isCompleted" class="btn btn-info" @click="doTask(id)">Done</button>
+          <button v-else class="btn btn-success" @click="doTask(id)">Return</button>
+          <button v-if="!editMode" class="btn btn-warning" @click="editMode = !editMode">Edit</button>
+          <button v-else class="btn btn-success" @click="editTask(id)">Save</button>
+          <button class="btn btn-danger" @click="deleteTask(id)">Delete</button>
+        </template>
       </div>
       </div>
   </div>
@@ -60,7 +63,9 @@ export default {
       imgUrl: '',
       taskTitle: '',
       taskDescription: '',
-      editMode: false
+      editMode: false,
+      isShowActions: false,
+      showActionsBtnName: 'Show'
     }
   },
   methods:{
@@ -80,6 +85,14 @@ export default {
     deleteTask(id){
       this.$emit("delete-task", id)
     },
+    showActions(){
+      this.isShowActions = !this.isShowActions
+      if(this.showActionsBtnName === 'Show'){
+        this.showActionsBtnName = 'Hide'
+      }else{
+        this.showActionsBtnName = 'Show'
+      }
+    }
   }
 }
 </script>

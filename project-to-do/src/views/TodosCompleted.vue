@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="showAllTasks">Show all tasks</button>
+    <button class="btn btn-primary" @click="showAllTasks">Show active tasks</button>
     <to-do-list
         :tasks = tasks
     >

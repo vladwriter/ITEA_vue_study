@@ -1,6 +1,6 @@
 <template>
   <div>
-      <button @click="showCompletedTasks">Show completed tasks</button>
+      <button class="btn btn-primary" @click="showCompletedTasks">Show completed tasks</button>
     <to-do-list
     :tasks = tasks
     >

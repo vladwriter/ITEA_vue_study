@@ -8,6 +8,10 @@
       >
         <template #addTaskForm></template>
       </add-list>
+      <c-input
+          placeholder="Search..."
+          v-model="query"
+      />
       <list-item
           v-for="(item, index) in currentTaskList"
           @do-task="completeTask"
@@ -31,13 +35,15 @@
 <script>
 import AddList from '../components/AddList.vue'
 import ListItem from '../components/ListItem.vue'
-import {DELETE_TASK, SET_LAST_TASK_ID, SET_TASKS, UPDATE_TASK} from "../types/mutations";
+import CInput from "./CInput";
+import {DELETE_TASK, SET_AUTH_USER, SET_LAST_TASK_ID, SET_TASKS, UPDATE_TASK} from "../types/mutations";
 
 export default {
   name: 'ToDoList',
   components:{
     AddList,
-    ListItem
+    ListItem,
+    CInput
   },
   props:{
     tasks: Array
@@ -46,12 +52,13 @@ export default {
     return{
       currentTaskList:[],
       isList: true,
+      query: ''
     }
   },
   computed:{
     authUser(){
       return this.$store.state.authUser
-    },
+    }
   },
   methods:{
     addTask(task){
@@ -88,7 +95,8 @@ export default {
       this.$store.commit(DELETE_TASK, id)
     },
     changeUser(){
-      this.authUser = ''
+      this.$store.commit(SET_AUTH_USER, false)
+      this.$router.push('auth')
     },
     setListType(data){
       this.isList = data
@@ -98,6 +106,20 @@ export default {
     tasks(){
       this.currentTaskList = this.tasks.filter(task => task.userId == this.authUser)
     },
+    query(){
+      let obj = this.tasks;
+      let newArray = [];
+      const search = this.query.toLowerCase();
+      for (let key in obj) {
+        let el = obj[key]
+        if (el.title.toLowerCase().indexOf(search) != -1) {
+          newArray.push(el)
+        } else if(el.description.toLowerCase().indexOf(search) != -1){
+          newArray.push(el)
+        }
+      }
+      this.currentTaskList = newArray
+    }
   },
   beforeMount() {
     this.currentTaskList = this.tasks.filter(task => task.userId === this.authUser)
