@@ -76,10 +76,10 @@ export default {
   },
   data(){
     return{
-      imgUrl: '',
-      taskTitle: '',
-      taskDescription: '',
-      taskStatus: 'green',
+      imgUrl: this.img,
+      taskTitle: this.title,
+      taskDescription: this.description,
+      taskStatus: this.status,
       editMode: false,
       isShowActions: false,
       showActionsBtnName: 'Show'
