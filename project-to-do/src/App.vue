@@ -6,9 +6,23 @@
       <router-link to="/auth">Authorization</router-link> |
       <router-link to="/feed">Feed page</router-link>
     </div>
+    <transition name="pageAnimation" mode="out-in">
     <router-view/>
+    </transition>
   </div>
 </template>
+<script>
+export default {
+  name: 'Home',
+  beforeCreate() {
+    if(!this.$store.state.authUser){
+      this.$router.push('auth')
+    }else{
+      this.$router.push('todos')
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -17,6 +31,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  padding: 10px 20px;
 }
 
 #nav {
@@ -30,5 +45,11 @@
       color: #42b983;
     }
   }
+}
+.pageAnimation-enter-active, .pageAnimation-leave-active {
+  transition: all .5s;
+}
+.pageAnimation-enter, .pageAnimation-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
 }
 </style>

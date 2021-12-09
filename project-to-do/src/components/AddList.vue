@@ -20,9 +20,16 @@
       placeholder="Img"
       v-model="img"
     />
+      <div class="form-group">
+        <label for="exampleSelect1" class="form-label mt-4">Change task status:</label>
+        <select class="form-select" id="exampleSelect1" v-model="taskStatus">
+          <option value="green">Green</option>
+          <option value="yellow">Yellow</option>
+          <option value="red">Red</option>
+        </select>
+      </div>
     <p class="text-danger">{{ validationMessage }}</p>
-    <button type="submit" class="btn btn-success btn-lg"
-      >Add task</button>
+    <button type="submit" class="btn btn-success btn-lg">Add task</button>
       </form>
       </transition>
       </slot>
@@ -42,6 +49,7 @@ export default {
       title:"",
       description:"",
       img:"",
+      taskStatus: 'green',
       isList: true,
       validationMessage: '',
       openCreateTaskForm: false
@@ -79,6 +87,7 @@ export default {
         title: this.title,
         description: this.description,
         img: this.img,
+        status: this.taskStatus,
         isCompleted: false,
         isEdited: false,
         dateTime: currentDateTime

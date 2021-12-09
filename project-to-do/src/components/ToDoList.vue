@@ -12,6 +12,11 @@
           placeholder="Search..."
           v-model="query"
       />
+      <div class="filters">
+        <button class="btn btn-success" @click="useFilter('green')">Green tasks</button>
+        <button class="btn btn-warning" @click="useFilter('yellow')">Yellow tasks</button>
+        <button class="btn btn-danger" @click="useFilter('red')">Red tasks</button>
+      </div>
       <list-item
           v-for="(item, index) in currentTaskList"
           @do-task="completeTask"
@@ -22,6 +27,7 @@
           :id = "item.id"
           :img="item.img"
           :title="item.title"
+          :status = "item.status"
           :description="item.description"
           :isCompleted="item.isCompleted"
           :isEdited="item.isEdited"
@@ -86,6 +92,7 @@ export default {
           newTask.img = data.img
           newTask.title = data.title
           newTask.description = data.description
+          newTask.status = data.status
           newTask.isEdited = true
           newTask.userId = this.authUser
           this.$store.commit(UPDATE_TASK, {id: data.id, newTask})
@@ -101,6 +108,9 @@ export default {
     },
     setListType(data){
       this.isList = data
+    },
+    useFilter(color){
+      this.currentTaskList = this.tasks.filter(task => task.status === color)
     }
   },
   watch:{
@@ -130,5 +140,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.filters{
+  text-align: left;
+}
 </style>
