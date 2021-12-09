@@ -9,7 +9,7 @@
           <div class="modal-body">
             <p class="text-danger">{{ message }}</p>
             <div class="form-group">
-              <label for="exampleInputEmail1" class="form-label mt-4">Login</label>
+              <label for="exampleInputEmail1" class="form-label mt-4">Login or email</label>
               <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter login" v-model="login">
             </div>
             <div class="form-group">
@@ -46,7 +46,8 @@ export default {
   methods:{
     checkForm(){
       for(let i=0; i<this.users.length; i++){
-        if(this.users[i].login == this.login && this.users[i].password == this.password){
+        if(this.users[i].login == this.login && this.users[i].password == this.password||
+            this.users[i].email == this.login && this.users[i].password == this.password){
           this.message =""
           this.$store.commit(SET_AUTH_USER, this.users[i].id)
           this.$router.push('Todos')
@@ -65,6 +66,7 @@ export default {
 
 <style scoped>
   .modal{
+    margin-top: 5%;
     display: block;
   }
   .modal-footer{

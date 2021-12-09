@@ -2,8 +2,9 @@
   <div id="app">
     <link rel="stylesheet" href="https://bootswatch.com/5/sketchy/bootstrap.min.css">
     <div id="nav">
-      <router-link to="/auth">Change user</router-link> |
-      <router-link to="/about">About</router-link>
+      <template  v-if="$store.state.authUser"><router-link to="/todos">ToDo List</router-link> | </template>
+      <router-link to="/auth">Authorization</router-link> |
+      <router-link to="/feed">Feed page</router-link>
     </div>
     <router-view/>
   </div>

@@ -55,12 +55,22 @@ export default {
   },
   methods:{
     checkUserData(){
+        let emailIsValid = false
+        for(let i=0; i<this.email.length; i++){
+          if (this.email[i] === '@'){
+            emailIsValid = true
+          }
+        }
         if(this.name == ""){
           this.message = "Write your name"
         }else if(this.login == ""){
           this.message = "Write your nickname"
+        }else if(!emailIsValid){
+          this.message = "Email must include '@'"
         }else if(this.password == ""){
           this.message = "Write your password"
+        }else if(this.password.length <=4){
+            this.message = "Password must be longer then 4 symbols"
         }else if(this.password !== this.repPassword){
           this.message = "Your password does not match"
         }else{
@@ -83,6 +93,7 @@ export default {
 <style scoped>
   .modal{
     display: block;
+    margin-top: 5%;
   }
   .modal-footer{
     justify-content: flex-start;

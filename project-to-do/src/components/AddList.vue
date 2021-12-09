@@ -66,11 +66,14 @@ export default {
       if(tail === 'jpg' || tail === 'png' || !tail){
       this.validationMessage = ''
       const dateTime = new Date()
-      let minutes = dateTime.getMinutes()
-      let hours = dateTime.getHours()
-      let day = dateTime.getDate()
-      let month = dateTime.getMonth()+1
-      let year = dateTime.getFullYear()
+        const twoDigits = (data) => {
+          return ('0' + data).slice(-2)
+        }
+        let minutes = twoDigits(dateTime.getMinutes())
+        let hours = twoDigits(dateTime.getHours())
+        let day = twoDigits(dateTime.getDate())
+        let month = twoDigits(dateTime.getMonth()+1)
+        let year = dateTime.getFullYear()
       let currentDateTime = `${hours}:${minutes} ${day}.${month}.${year}`
       const newTask = {
         title: this.title,

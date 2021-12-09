@@ -15,6 +15,21 @@ const vuexPersist = new VuexPersist({
     storage: window.localStorage
 })
 
+const getDateTime = () =>{
+    const dateTime = new Date()
+    const twoDigits = (data) => {
+        return ('0' + data).slice(-2)
+    }
+    let minutes = twoDigits(dateTime.getMinutes())
+    let hours = twoDigits(dateTime.getHours())
+    let day = twoDigits(dateTime.getDate())
+    let month = twoDigits(dateTime.getMonth()+1)
+    let year = dateTime.getFullYear()
+    return `${hours}:${minutes}   ${day}.${month}.${year}`
+}
+
+
+
 export default new Vuex.Store({
   state: {
     users:[
@@ -33,6 +48,7 @@ export default new Vuex.Store({
       tasks: [],
       currentTaskList:[],
       lastTaskId: 0,
+      feeds: []
   },
   mutations: {
       [SET_NEW_USER](state, newUser){
@@ -45,25 +61,42 @@ export default new Vuex.Store({
       },
       [SET_TASKS](state, payload){
           state.tasks.push(payload)
+          //Add new feed
+          let currentUser = state.users.find(user => user.id == state.authUser)
+          let newFeed = `User ${currentUser.name} added the task '${payload.title}' [${getDateTime()}]`
+          state.feeds.push(newFeed)
       },
       [SET_LAST_TASK_ID]: state => state.lastTaskId++,
-      [UPDATE_TASK](state, {id, newTask}){
-          for(let i = 0; i<state.tasks.length; i++){
-              if(state.tasks[i].id === id){
-                  state.tasks[i] = newTask
-              }
+      [UPDATE_TASK](state, {id, newTask, isChanged}){
+          let currentUser = state.users.find(user => user.id === state.authUser)
+          //Add new feed
+          let keyword = 'edited'
+          if(isChanged){
+               if(newTask.isCompleted){
+                  keyword = 'did'
+              }else{
+                   keyword = 'returned'
+               }
           }
+          //Add new feed
+          let newFeed = `User ${currentUser.name} ${keyword} the task '${newTask.title}' [${getDateTime()}]`
+          state.feeds.push(newFeed)
       },
       [DELETE_TASK](state, id){
+          let taskTitle = ''
           for(let i = 0; i<state.tasks.length; i++){
               if(state.tasks[i].id === id){
+                  taskTitle = state.tasks[i].title
                   state.tasks.splice(i, 1)
               }
           }
+          //Add new feed
+          let currentUser = state.users.find(user => user.id == state.authUser)
+          let newFeed = `User ${currentUser.name} removed the task '${taskTitle}' [${getDateTime()}]`
+          state.feeds.push(newFeed)
       }
   },
   actions: {
-
   },
   modules: {
   },

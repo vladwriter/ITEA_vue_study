@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <button type="button" class="btn btn-success" @click="changeUser">Change user</button>
+      <button type="button" class="btn btn-success" @click="changeUser">Change user (Exit)</button>
       <add-list
           @add-task="addTask"
           @list-type="setListType"
@@ -72,9 +72,10 @@ export default {
       for(let i = 0; i<this.tasks.length; i++) {
         if (this.tasks[i].id === id) {
           let newTask = this.tasks[i]
+          let isChanged = true
           newTask.isCompleted = !newTask.isCompleted
           newTask.userId = this.authUser
-          this.$store.commit(UPDATE_TASK, {id: id, newTask})
+          this.$store.commit(UPDATE_TASK, {id: id, newTask, isChanged})
         }
       }
     },
