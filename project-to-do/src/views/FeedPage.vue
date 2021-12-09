@@ -1,13 +1,14 @@
 <template>
-  <div class="about">
+  <div class="about" :style="{'background-color': colors.light}">
     <h1>This is Feed Page</h1>
     <ul>
-      <li v-for="feed in feeds">{{feed}}</li>
+      <li v-for="feed in feeds" :style="{'color': colors.hard}">{{feed}}</li>
     </ul>
   </div>
 </template>
 <script>
 export default {
+  inject: ['colors'],
   name: 'FeedPage',
   computed:{
     feeds(){

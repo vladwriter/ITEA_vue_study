@@ -5,15 +5,47 @@
       <template  v-if="$store.state.authUser"><router-link to="/todos">ToDo List</router-link> | </template>
       <router-link to="/auth">Authorization</router-link> |
       <router-link to="/feed">Feed page</router-link>
+      <button class="btn btn-info" @click="changeTheme">{{btnName}}</button>
     </div>
-    <transition name="pageAnimation" mode="out-in">
-    <router-view/>
-    </transition>
+    <template v-if="isBlueTheme">
+      <blue-theme>
+        <transition name="pageAnimation" mode="out-in">
+          <router-view/>
+        </transition>
+      </blue-theme>
+    </template>
+    <template v-else>
+      <default-theme>
+        <transition name="pageAnimation" mode="out-in">
+          <router-view/>
+        </transition>
+      </default-theme>
+    </template>
   </div>
 </template>
 <script>
+import BlueTheme from "./components/themes/BlueTheme";
+import DefaultTheme from "./components/themes/DefaultTheme";
+
 export default {
   name: 'Home',
+  components: {BlueTheme, DefaultTheme},
+  data(){
+    return{
+      isBlueTheme: true,
+      btnName: 'Blue theme'
+    }
+  },
+  methods:{
+    changeTheme(){
+      if(this.isBlueTheme){
+        this.btnName = 'Blue theme'
+      }else{
+        this.btnName = 'Default theme'
+      }
+      this.isBlueTheme = !this.isBlueTheme
+    }
+  },
   beforeCreate() {
     if(!this.$store.state.authUser){
       this.$router.push('auth')
@@ -45,6 +77,9 @@ export default {
       color: #42b983;
     }
   }
+}
+.btn{
+  margin-left: 200px;
 }
 .pageAnimation-enter-active, .pageAnimation-leave-active {
   transition: all .5s;

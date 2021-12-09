@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div :style="{'background-color': colors.light}">
     <div>
-      <button type="button" class="btn btn-success" @click="changeUser">Change user (Exit)</button>
+      <button type="button" class="btn btn-success" @click="changeUser"
+              :style="{'background-color': colors.hard, 'border-color': colors.middle}">Change user (Exit)</button>
       <add-list
           @add-task="addTask"
           @list-type="setListType"
@@ -45,6 +46,7 @@ import CInput from "./CInput";
 import {DELETE_TASK, SET_AUTH_USER, SET_LAST_TASK_ID, SET_TASKS, UPDATE_TASK} from "../types/mutations";
 
 export default {
+  inject: ['colors'],
   name: 'ToDoList',
   components:{
     AddList,

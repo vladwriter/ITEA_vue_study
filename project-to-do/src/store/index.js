@@ -91,7 +91,7 @@ export default new Vuex.Store({
               }
           }
           //Add new feed
-          let currentUser = state.users.find(user => user.id == state.authUser)
+          let currentUser = state.users.find(user => user.id === state.authUser)
           let newFeed = `User ${currentUser.name} removed the task '${taskTitle}' [${getDateTime()}]`
           state.feeds.push(newFeed)
       }

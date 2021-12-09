@@ -2,7 +2,7 @@
   <div>
     <div class="modal">
       <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" :style="{'background-color': colors.middle}">
           <div class="modal-header">
             <h5 class="modal-title">Registration</h5><router-link to="/auth">Authorization</router-link>
           </div>
@@ -30,7 +30,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" @click="checkUserData">Sign up</button>
+            <button type="button" class="btn btn-primary" @click="checkUserData" :style="{'background-color': colors.hard}">Sign up</button>
           </div>
         </div>
       </div>
@@ -42,6 +42,7 @@
 import {SET_NEW_USER} from "../types/mutations";
 
 export default {
+  inject: ['colors'],
   name: 'Registration',
   data(){
     return{
