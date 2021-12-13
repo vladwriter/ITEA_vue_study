@@ -112,7 +112,8 @@ export default {
       this.isList = data
     },
     useFilter(color){
-      this.currentTaskList = this.tasks.filter(task => task.status === color)
+      this.currentTaskList = this.tasks.filter(task => task.userId === this.$store.state.authUser)
+      this.currentTaskList = this.currentTaskList.filter(task => task.status === color)
     }
   },
   watch:{

@@ -32,18 +32,7 @@ const getDateTime = () =>{
 
 export default new Vuex.Store({
   state: {
-    users:[
-          {
-            id: 1,
-            login: "user1",
-            password: "user1"
-          },
-          {
-            id: 2,
-            login: "user2",
-            password: "user2",
-          }
-        ],
+    users:[],
       authUser: '',
       tasks: [],
       currentTaskList:[],
@@ -52,7 +41,11 @@ export default new Vuex.Store({
   },
   mutations: {
       [SET_NEW_USER](state, newUser){
-          newUser.id = state.users[state.users.length-1].id + 1
+          if(state.users.length>0){
+              newUser.id = state.users[state.users.length-1].id+ 1
+          }else{
+              newUser.id = 1
+          }
           state.users.push(newUser)
           state.authUser = newUser.id
       },
